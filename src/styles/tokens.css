@@ -1,0 +1,209 @@
+/* Design tokens. Light by default, dark via prefers-color-scheme and an
+   explicit [data-theme] override so the in-app toggle wins both directions. */
+
+:root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo,
+    Consolas, monospace;
+
+  /* Surfaces & text */
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --surface-3: #e7eaef;
+  --border: #d9dde4;
+  --border-strong: #c2c8d2;
+  --text: #1b2030;
+  --text-2: #4a5163;
+  --text-muted: #7b8494;
+
+  /* Brand accent — a calm clinical indigo/teal */
+  --accent: #2f6f8f;
+  --accent-2: #3f8fb0;
+  --accent-soft: #e3f0f5;
+  --accent-contrast: #ffffff;
+
+  /* Semantic */
+  --good: #1f8a53;
+  --good-soft: #e2f2e9;
+  --warn: #b3730b;
+  --warn-soft: #f8ecd7;
+  --bad: #c23b34;
+  --bad-soft: #f8e3e1;
+  --info: #3a6ea5;
+  --info-soft: #e6eef7;
+
+  /* Finding-role palette */
+  --role-diagnostic: #3a6ea5;
+  --role-diagnostic-soft: #e6eef7;
+  --role-prognostic: #b3730b;
+  --role-prognostic-soft: #f8ecd7;
+  --role-predictive: #1f8a53;
+  --role-predictive-soft: #e2f2e9;
+  --role-mrd: #7a4fb0;
+  --role-mrd-soft: #efe8f7;
+
+  /* ELN risk */
+  --eln-favorable: var(--good);
+  --eln-intermediate: var(--warn);
+  --eln-adverse: var(--bad);
+
+  /* Flow expression */
+  --expr-positive: #1f8a53;
+  --expr-bright: #0f6b3d;
+  --expr-dim: #7c9a5a;
+  --expr-subset: #4b83a8;
+  --expr-negative: #9aa2b1;
+  --expr-aberrant: #c23b34;
+
+  /* Lineage column tints */
+  --lin-stem: #6b74c4;
+  --lin-myeloid: #c47b3a;
+  --lin-monocytic: #b0863a;
+  --lin-erythroid: #c2504a;
+  --lin-megakaryocytic: #8a6dbf;
+  --lin-b: #3a86a8;
+  --lin-t: #2f9e83;
+  --lin-nk: #5f9440;
+  --lin-plasma: #b0568f;
+
+  /* Ideogram Giemsa stains */
+  --band-gneg: #f2f3f6;
+  --band-gpos: #7c8394;
+  --band-gpos25: #cfd3dc;
+  --band-gpos50: #a2a8b8;
+  --band-gpos75: #6c7386;
+  --band-gpos100: #333849;
+  --band-acen: #c0392b;
+  --band-gvar: #93a7d1;
+  --band-stalk: #aeb5c4;
+
+  /* Ideogram origins (translocation tints) */
+  --origin-a: rgba(58, 134, 168, 0.34);
+  --origin-b: rgba(196, 123, 58, 0.34);
+
+  --radius: 10px;
+  --radius-sm: 7px;
+  --radius-lg: 16px;
+  --shadow-1: 0 1px 2px rgba(20, 25, 40, 0.06), 0 1px 3px rgba(20, 25, 40, 0.08);
+  --shadow-2: 0 4px 12px rgba(20, 25, 40, 0.1);
+  --shadow-3: 0 12px 32px rgba(20, 25, 40, 0.16);
+
+  --maxw: 1180px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1319;
+    --surface: #171c25;
+    --surface-2: #1e2531;
+    --surface-3: #27303e;
+    --border: #2c3543;
+    --border-strong: #3a4557;
+    --text: #e7ebf2;
+    --text-2: #b3bccb;
+    --text-muted: #7f8a9c;
+
+    --accent: #5aa9ca;
+    --accent-2: #7cc2df;
+    --accent-soft: #14313d;
+    --accent-contrast: #08171d;
+
+    --good: #47c07f;
+    --good-soft: #12301f;
+    --warn: #e0a24a;
+    --warn-soft: #34260f;
+    --bad: #eb6a62;
+    --bad-soft: #341715;
+    --info: #6ea3d8;
+    --info-soft: #12222f;
+
+    --role-diagnostic: #6ea3d8;
+    --role-diagnostic-soft: #12222f;
+    --role-prognostic: #e0a24a;
+    --role-prognostic-soft: #34260f;
+    --role-predictive: #47c07f;
+    --role-predictive-soft: #12301f;
+    --role-mrd: #b18adb;
+    --role-mrd-soft: #221830;
+
+    --expr-positive: #47c07f;
+    --expr-bright: #63d495;
+    --expr-dim: #9bb977;
+    --expr-subset: #6bb0d4;
+    --expr-negative: #6a7488;
+    --expr-aberrant: #eb6a62;
+
+    --band-gneg: #222834;
+    --band-gpos: #6a7488;
+    --band-gpos25: #333c4b;
+    --band-gpos50: #4a5567;
+    --band-gpos75: #7f8ba0;
+    --band-gpos100: #c3cbd8;
+    --band-acen: #d3564a;
+    --band-gvar: #4d5f85;
+    --band-stalk: #414a5c;
+
+    --origin-a: rgba(110, 163, 216, 0.4);
+    --origin-b: rgba(224, 162, 74, 0.4);
+
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-2: 0 6px 16px rgba(0, 0, 0, 0.5);
+    --shadow-3: 0 14px 36px rgba(0, 0, 0, 0.6);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1319;
+  --surface: #171c25;
+  --surface-2: #1e2531;
+  --surface-3: #27303e;
+  --border: #2c3543;
+  --border-strong: #3a4557;
+  --text: #e7ebf2;
+  --text-2: #b3bccb;
+  --text-muted: #7f8a9c;
+
+  --accent: #5aa9ca;
+  --accent-2: #7cc2df;
+  --accent-soft: #14313d;
+  --accent-contrast: #08171d;
+
+  --good: #47c07f;
+  --good-soft: #12301f;
+  --warn: #e0a24a;
+  --warn-soft: #34260f;
+  --bad: #eb6a62;
+  --bad-soft: #341715;
+  --info: #6ea3d8;
+  --info-soft: #12222f;
+
+  --role-diagnostic: #6ea3d8;
+  --role-diagnostic-soft: #12222f;
+  --role-prognostic: #e0a24a;
+  --role-prognostic-soft: #34260f;
+  --role-predictive: #47c07f;
+  --role-predictive-soft: #12301f;
+  --role-mrd: #b18adb;
+  --role-mrd-soft: #221830;
+
+  --expr-positive: #47c07f;
+  --expr-bright: #63d495;
+  --expr-dim: #9bb977;
+  --expr-subset: #6bb0d4;
+  --expr-negative: #6a7488;
+  --expr-aberrant: #eb6a62;
+
+  --band-gneg: #222834;
+  --band-gpos25: #333c4b;
+  --band-gpos50: #4a5567;
+  --band-gpos75: #7f8ba0;
+  --band-gpos100: #c3cbd8;
+  --band-acen: #d3564a;
+  --band-gvar: #4d5f85;
+  --band-stalk: #414a5c;
+
+  --origin-a: rgba(110, 163, 216, 0.4);
+  --origin-b: rgba(224, 162, 74, 0.4);
+}

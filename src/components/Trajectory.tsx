@@ -26,13 +26,28 @@ export function Trajectory({
       <ol className="traj-list">
         {entries.map((e, i) => {
           const meta = stageMeta(e.stageId);
+          const moved =
+            !e.delta ||
+            e.delta.leadingChanged !== null ||
+            e.delta.added.length > 0 ||
+            e.delta.removed.length > 0 ||
+            e.delta.confidenceDelta !== 0;
           return (
-            <li key={i} className="traj-entry">
+            <li key={i} className={`traj-entry${moved ? "" : " held"}`}>
               <div className="traj-stage">{meta.title}</div>
               <div className="traj-body">
                 <div className="traj-leading">
-                  Leading: <strong>{e.commit.leading}</strong>
-                  <span className="muted"> · {e.commit.confidence}%</span>
+                  {moved ? (
+                    <>
+                      Leading: <strong>{e.commit.leading}</strong>
+                      <span className="muted"> · {e.commit.confidence}%</span>
+                    </>
+                  ) : (
+                    <span className="muted">
+                      Held <strong>{e.commit.leading}</strong> at{" "}
+                      {e.commit.confidence}% — this layer did not move you.
+                    </span>
+                  )}
                 </div>
                 {e.delta && (
                   <div className="traj-delta">

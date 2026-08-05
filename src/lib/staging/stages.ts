@@ -31,7 +31,7 @@ export const STAGES: StageMeta[] = [
     title: "Morphology",
     subtitle: "Peripheral smear and marrow aspirate / core",
     commitPrompt:
-      "Now that you have looked at the cells, revise your differential. What did the morphology add or subtract?",
+      "Did the cells change your mind? If not, say so and move on — but commit to what you expect flow to show.",
     commits: true,
   },
   {
@@ -40,7 +40,7 @@ export const STAGES: StageMeta[] = [
     title: "Flow immunophenotype",
     subtitle: "Lineage assignment and aberrancies",
     commitPrompt:
-      "Flow assigns lineage and flags aberrancies. Update your ranking.",
+      "Flow has assigned lineage. Adjust only if it moved you — then predict the karyotype.",
     commits: true,
   },
   {
@@ -49,7 +49,7 @@ export const STAGES: StageMeta[] = [
     title: "Cytogenetics",
     subtitle: "Karyotype and FISH",
     commitPrompt:
-      "Cytogenetics is often the pivot. Re-rank — did a defining abnormality just appear?",
+      "Cytogenetics is often the pivot. Did a defining abnormality just appear?",
     commits: true,
   },
   {
@@ -58,7 +58,7 @@ export const STAGES: StageMeta[] = [
     title: "Molecular (NGS)",
     subtitle: "Mutations, with diagnostic / prognostic / predictive weight",
     commitPrompt:
-      "The molecular layer resolves classification and risk. Final commit before the answer.",
+      "Last call before the integrated answer. Lock in your final diagnosis.",
     commits: true,
   },
   {

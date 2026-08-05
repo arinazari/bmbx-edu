@@ -2,7 +2,13 @@ import { useMemo, useState } from "react";
 import type { HemeCase, StageId } from "../types/case";
 import { STAGES } from "../lib/staging/stages";
 import type { Commit } from "../lib/staging/stages";
+import {
+  buildPredictions,
+  predictionAskedAt,
+  predictionResolvedAt,
+} from "../lib/predict/predictions";
 import { DifferentialCommit } from "./DifferentialCommit";
+import { PredictionResult } from "./PredictionResult";
 import { Trajectory } from "./Trajectory";
 import {
   CytogeneticsView,
@@ -15,11 +21,16 @@ import {
 
 export function Workspace({ case: c }: { case: HemeCase }) {
   const [commits, setCommits] = useState<Record<string, Commit>>({});
+  const [predictions, setPredictions] = useState<Record<string, string[]>>({});
   const [maxRevealed, setMaxRevealed] = useState(0);
   const [current, setCurrent] = useState(0);
 
   const stage = STAGES[current];
   const isLast = current === STAGES.length - 1;
+
+  const allPredictions = useMemo(() => buildPredictions(c), [c]);
+  const askHere = predictionAskedAt(allPredictions, stage.id);
+  const resolveHere = predictionResolvedAt(allPredictions, stage.id);
 
   // Ordered commits (by stage order) for the trajectory.
   const orderedCommits = useMemo(
@@ -37,8 +48,11 @@ export function Workspace({ case: c }: { case: HemeCase }) {
     return undefined;
   }, [commits, current]);
 
-  const handleCommit = (commit: Commit) => {
+  const handleCommit = (commit: Commit, picks: string[]) => {
     setCommits((prev) => ({ ...prev, [commit.stageId]: commit }));
+    if (askHere) {
+      setPredictions((prev) => ({ ...prev, [askHere.askAt]: picks }));
+    }
     if (current === maxRevealed && current < STAGES.length - 1) {
       setMaxRevealed(current + 1);
       setCurrent(current + 1);
@@ -82,6 +96,13 @@ export function Workspace({ case: c }: { case: HemeCase }) {
         <p className="muted stage-subtitle">{stage.subtitle}</p>
       </div>
 
+      {resolveHere && predictions[resolveHere.askAt] && (
+        <PredictionResult
+          prediction={resolveHere}
+          picks={predictions[resolveHere.askAt]}
+        />
+      )}
+
       <div className="stage-content">
         <StageBody
           stageId={stage.id}
@@ -95,10 +116,13 @@ export function Workspace({ case: c }: { case: HemeCase }) {
       {stage.commits && (
         <DifferentialCommit
           stageId={stage.id}
+          isFirst={current === 0}
           prompt={stage.commitPrompt}
           options={c.differentialOptions}
           previous={previousCommit}
           committed={commits[stage.id]}
+          prediction={askHere}
+          predictionPicks={predictions[stage.id]}
           onCommit={handleCommit}
         />
       )}
